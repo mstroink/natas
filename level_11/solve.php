@@ -10,6 +10,18 @@ $password = readFlag($level - 1);
 
 $url = sprintf('http://%s.natas.labs.overthewire.org/', $username);
 
+function xor_encrypt($in, $key)
+{
+    $text = $in;
+    $outText = '';
+
+    for ($i = 0; $i < strlen($text); $i++) {
+        $outText .= $text[$i] ^ $key[$i % strlen($key)];
+    }
+
+    return $outText;
+}
+
 $key = 'qw8J'; //use find_key.php
 $data = json_encode(["showpassword" => "yes", "bgcolor" => "#ffffff"]);
 $cookie = base64_encode(xor_encrypt($data, $key));
