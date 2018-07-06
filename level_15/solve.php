@@ -31,4 +31,4 @@ while (strlen($seenPassword) < 32) {
 }
 
 echo "\n";
-echo $guessedPassword;
+echo $seenPassword;
