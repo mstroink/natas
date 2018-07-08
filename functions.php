@@ -1,7 +1,7 @@
 <?php
 function readFlag($level)
 {
-    $file = __DIR__ . '/' . 'level_' . $level . '/' . 'flag.txt';
+    $file = __DIR__ . '/' . 'level_' . str_pad($level, 2, '0', STR_PAD_LEFT) . '/' . 'flag.txt';
 
     if (file_exists($file)) {
         return file($file, FILE_IGNORE_NEW_LINES)[0] ?? null;
